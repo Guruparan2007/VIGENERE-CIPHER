@@ -31,6 +31,77 @@ STEP-8: Repeat the above steps to generate the entire cipher text.
 
 ## PROGRAM
 
+```
+#include <stdio.h>
+#include <string.h>
+#include <ctype.h>
+void vigenereEncrypt(char plaintext[], char key[], char ciphertext[]) {
+    int i, j;
+    int pLen = strlen(plaintext);
+    int kLen = strlen(key);
+
+    for (i = 0, j = 0; i < pLen; i++) {
+        char p = toupper(plaintext[i]);
+        char k = toupper(key[j % kLen]);
+
+        if (p >= 'A' && p <= 'Z') {
+            ciphertext[i] = ((p - 'A') + (k - 'A')) % 26 + 'A';
+            j++; 
+        } else {
+            ciphertext[i] = plaintext[i]; 
+        }
+    }
+    ciphertext[pLen] = '\0';
+}
+void vigenereDecrypt(char ciphertext[], char key[], char plaintext[]) {
+    int i, j;
+    int cLen = strlen(ciphertext);
+    int kLen = strlen(key);
+
+    for (i = 0, j = 0; i < cLen; i++) {
+        char c = toupper(ciphertext[i]);
+        char k = toupper(key[j % kLen]);
+
+        if (c >= 'A' && c <= 'Z') {
+            plaintext[i] = ((c - 'A') - (k - 'A') + 26) % 26 + 'A';
+            j++;
+        } else {
+            plaintext[i] = ciphertext[i];
+        }
+    }
+    plaintext[cLen] = '\0';
+}
+
+int main() {
+    char plaintext[100], key[100], ciphertext[100], decrypted[100];
+
+    printf("Enter plaintext: ");
+    scanf("%s", plaintext);
+
+    printf("Enter key: ");
+    scanf("%s", key);
+
+    vigenereEncrypt(plaintext, key, ciphertext);
+    printf("Encrypted text: %s\n", ciphertext);
+
+    vigenereDecrypt(ciphertext, key, decrypted);
+    printf("Decrypted text: %s\n", decrypted);
+
+    return 0;
+}
+```
+
+```
+REG N0: 212224220030
+NAME: GURUPARAN G
+```
+
+
 ## OUTPUT
 
+<img width="407" height="230" alt="image" src="https://github.com/user-attachments/assets/fc4c869a-17bc-482c-bea1-ebd02debf12b" />
+
+
 ## RESULT
+
+Thus the output has successfully excuted.
